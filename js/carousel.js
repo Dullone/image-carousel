@@ -29,16 +29,18 @@ var carousel = (function() {
 
   var changeImage = function(number) {
     _image_info[number].start
-    $('#images').animate({ left: _image_info[number].start }, 600);
+    $('#images').animate({ right: _image_info[number].start }, 600);
   };
 
   return{
     init: init,
+    changeImage: changeImage,
   }
 })();
 
 $(document).ready(function($) {
-  $('#images').animate({ left: "-400" }, 600, function() {});
+  //$('#images').animate({ left: "-400" }, 600, function() {});
 
   carousel.init();
+  carousel.changeImage(1);
 });
