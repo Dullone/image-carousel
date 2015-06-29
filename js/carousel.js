@@ -52,7 +52,7 @@ var carousel = (function() {
     if(_current_animation) {
       _current_animation.stop();
     }
-    _image_info[number].start
+
     _current_animation = $('#images').animate({ right: _image_info[number].start 
                           }, 600, finishFlipAnimation);
     _current_image = number;
