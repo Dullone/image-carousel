@@ -16,6 +16,8 @@ var carousel = (function() {
     beginAutoImageFlip();
     registerButtonClick();
     addButtonHighlight(_current_image);
+    $('#btn-next').click(nextImage);
+    $('#btn-prev').click(prevImage);
   };
 
   var addImages = function() {
@@ -37,7 +39,6 @@ var carousel = (function() {
         })
 
     _total_width += width;
-    console.log(_total_width + ', no images: ' + _image_info.length);
   }
 
   var registerButtonClick = function() {
@@ -76,15 +77,26 @@ var carousel = (function() {
     _next_auto_flip = setTimeout(flipImage, tick);
   };
 
-  var flipImage = function() {
-    _current_image += 1;
+  var flipImage = function(direction) {
+    direction = direction || 1;
+    _current_image += direction;
     if(_current_image > _image_info.length - 1) {
       _current_image = 0;
     }
+    if(_current_image < 0) {
+      _current_image = _image_info.length -1;
+    }
 
-    console.log('flip to: ' + _current_image);
     changeImage(_current_image);
     beginAutoImageFlip();
+  };
+
+  var nextImage = function() {
+    flipImage(1);
+  };
+
+  var prevImage = function() {
+    flipImage(-1);
   };
 
   var addButton = function(index, el) {
@@ -93,13 +105,9 @@ var carousel = (function() {
 
   return{
     init: init,
-    changeImage: changeImage,
   }
 })();
 
 $(document).ready(function($) {
-  //$('#images').animate({ left: "-400" }, 600, function() {});
-
   carousel.init();
-  //carousel.changeImage(1);
 });

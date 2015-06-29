@@ -47,7 +47,9 @@ table {
 	border-spacing: 0;
 }
 
-
+a{
+	text-decoration: none;
+}
 
 /* custom styles */
 #image-window{
@@ -69,6 +71,8 @@ table {
 }
 .maincontainer{
 	background-color: #eee;
+	display: inline-block;
+	padding: 10px;
 }
 
 #image-buttons{
@@ -95,4 +99,13 @@ table {
 
 .border{
 	border: solid #1f628d 2px;
+}
+
+#btn-next{
+	float: right;
+	font-size: 30px;
+}
+#btn-prev{
+	float: left;
+	font-size: 30px;
 }
