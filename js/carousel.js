@@ -6,18 +6,26 @@ var carousel = (function() {
   var _total_width = 0;
 
   var _next_auto_flip = null;
+  _current_animation = null;
   const tick = 5000;
 
   var init = function() {
     $_images =  $('#images');
     _window_width = $('image-window').width();
-    getImageWidths();
-    autoFlipImage();
+    addImages();
+    beginAutoImageFlip();
+    registerButtonClick();
+    addButtonHighlight(_current_image);
   };
 
-  var getImageWidths = function() {
+  var addImages = function() {
     var _total_width = 0;
-    $_images.children('img').each(storeImageInfo);
+    $_images.children('img').each(eachImage);
+  };
+
+  var eachImage = function(index, el) {
+    storeImageInfo(index, el);
+    addButton(index, el);
   };
 
   var storeImageInfo = function(index, el){
@@ -32,12 +40,35 @@ var carousel = (function() {
     console.log(_total_width + ', no images: ' + _image_info.length);
   }
 
+  var registerButtonClick = function() {
+    $('#image-buttons a').click(function(event) {
+      image = Number($(this).text()) - 1;
+      changeImage(image);
+    });
+  }
+
   var changeImage = function(number) {
+    if(_current_animation) {
+      _current_animation.stop();
+    }
     _image_info[number].start
-    $('#images').animate({ right: _image_info[number].start }, 600);
+    _current_animation = $('#images').animate({ right: _image_info[number].start 
+                          }, 600, finishFlipAnimation);
+    _current_image = number;
+    beginAutoImageFlip();
   };
 
-  var autoFlipImage = function() {
+  var finishFlipAnimation = function() {
+    addButtonHighlight(_current_image);
+  }
+
+  var addButtonHighlight = function(number) {
+    var $images = $('#image-buttons').children('a')
+    $images.removeClass('border');
+    $images.eq(number).addClass('border');
+  }
+
+  var beginAutoImageFlip = function() {
     if(_next_auto_flip){
       clearTimeout(_next_auto_flip);
     }
@@ -53,8 +84,12 @@ var carousel = (function() {
 
     console.log('flip to: ' + _current_image);
     changeImage(_current_image);
-    autoFlipImage();
+    beginAutoImageFlip();
   };
+
+  var addButton = function(index, el) {
+    $('#image-buttons').append('<a class="btn" href="#">' + (index + 1) + '</a>');
+  }
 
   return{
     init: init,

@@ -70,3 +70,29 @@ table {
 .maincontainer{
 	background-color: #eee;
 }
+
+#image-buttons{
+	padding: 10px;
+}
+
+.btn {
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 40px;
+  font-family: Arial;
+  font-size: 12px;
+  color: #ffffff;
+  background: #c7c7c7;
+  padding: 6px 10px 6px 10px;
+  text-decoration: none;
+  margin: 15px;
+}
+
+.btn:hover {
+  background: #ccc;
+  text-decoration: none;
+}
+
+.border{
+	border: solid #1f628d 2px;
+}
