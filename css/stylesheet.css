@@ -68,6 +68,8 @@ a{
 	width: 4000px;
 	height: 300px;
 	position: relative;
+	background-image: url("../notFound.png");
+	background-repeat: repeat;
 }
 .maincontainer{
 	background-color: #eee;
